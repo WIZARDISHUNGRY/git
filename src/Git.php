@@ -183,10 +183,8 @@ class Git
      * @param  string $to
      * @return string
      */
-
-    public  function getAhead($from, $to)
+    public function getAhead($from, $to)
     {
-        echo "$from , $to\n";
         $this->execute(
             'git rev-list --left-right ' . $from . '..' . $to,
             $output,
@@ -202,6 +200,20 @@ class Git
           }
         }
         return array('left' => $left, 'right' => $right);
+    }
+
+    /**
+     * @param  string $branch
+     * @return bool
+     */
+    public function isExistingBranch($branch)
+    {
+        $this->execute(
+            'git branch --list ' . $branch,
+            $output,
+            $return
+        );
+        return count($output) > 0;
     }
 
     /**
