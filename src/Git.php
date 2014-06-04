@@ -218,6 +218,35 @@ class Git
     }
 
     /**
+     * @param  string $refspec
+     * @return bool
+     */
+    public function merge($refspec)
+    {
+        $this->execute(
+            'git merge '.$refspec.' 2>&1',
+            $output,
+            $return
+        );
+        return $output;
+    }
+
+    /**
+     * @param  string $refspec
+     * @return bool
+     */
+    public function isMergeClean($src, $dst)
+    {
+        $this->checkout($dst);
+        $this->execute(
+            'git format-patch $(git merge-base '.$dst.' '.$src.')..'.$src.' --stdout | git apply --check - 2>&1',
+            $output,
+            $return
+        );
+        return count(preg_grep('/^error: /', $output)) == 0;
+    }
+
+    /**
      * @param string  $command
      * @param array   $output
      * @param integer $returnValue
