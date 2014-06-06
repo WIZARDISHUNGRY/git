@@ -1,5 +1,5 @@
 {
-    "name": "WIZARDISHUNGRY/git",
+    "name": "sebastian/git",
     "description": "Simple wrapper for Git",
     "keywords": ["git"],
     "homepage": "http://www.github.com/sebastianbergmann/git",
